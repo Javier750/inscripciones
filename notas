@@ -1,0 +1,29 @@
+var datos = []
+for  (i=0; i<917; i++) {
+  datos.push(
+    [ Col0[i], Col1[i], Col3[i], Col2[i], Col4[i], "", "","No"
+    ]
+  );
+}
+JSON.stringify(datos)
+
+
+
+
+
+JSON 
+var datos = []
+for  (i=0; i<917; i++) {
+  datos.push(
+    {'Documento': Col0[i],
+     'Sal': Col1[i], 
+     'Apellido': Col3[i],
+     'Nombre': Col2[i],
+     'Lugar': Col4[i],
+     'Telefono': "",
+     'DocResponsable': "",
+     'Acreditado': "No"
+    }
+  );
+}
+JSON.stringify(datos)
