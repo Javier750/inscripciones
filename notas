@@ -1,3 +1,18 @@
+TODOs:
+
+  instalar wanmp
+  modificar privilegios virtualHosts
+  crear db inscripciones
+  importar datos.sql
+  update acreditados a "No"
+      UPDATE `datos` SET `Acreditado`='No' WHERE 1
+
+
+
+
+
+
+
 var datos = []
 for  (i=0; i<917; i++) {
   datos.push(
