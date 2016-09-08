@@ -3,31 +3,33 @@
 include("abre_conexion.php"); 
 
 $_dni = $_GET["dni"];
-$_check = $_GET["checkExist"];
 
+$mysqli = new mysqli($hotsdb, $usuariodb, $clavedb, $basededatos);
 
-$_Select = "SELECT * FROM $tabla_db1 WHERE Documento like '$_dni' "; 
-if(!$_check) 
-{
-	if (mysql_num_rows(mysql_query($_Select)) == 0) {
-		echo 'true';
-	}
-	else {
-		echo "false";
-	}
-}
-else
-{
+$sql = "SELECT Documento FROM $tabla_db1 WHERE Documento = $_dni";
 
-	if (mysql_num_rows(mysql_query($_Select)) == 0) {
-		echo 'false';
-	}
-	else {
-		echo "true";
-	}
+if (!$resultado = $mysqli->query($sql)) {
+    echo 'falsedddd';
+    exit;
 }
 
-// Cerramos la conexion a la base de datos 
-include("cierra_conexion.php"); 
+// ¡Uf, lo conseguimos!. Sabemos que nuestra conexión a MySQL y nuestra consulta
+// tuvieron éxito, pero ¿tenemos un resultado?
+if ($resultado->num_rows === 0) {
+    // ¡Oh, no ha filas! Unas veces es lo previsto, pero otras
+    // no. Nosotros decidimos. En este caso, ¿podría haber sido
+    // actor_id demasiado grande? 
+    http_response_code(404);
+    echo 'false';
+    exit;
+}
+
+if ($resultado->num_rows === 1) {
+	http_response_code(200);
+ echo 'true';
+}
+
+$resultado->free();
+$mysqli->close();
 
 ?>

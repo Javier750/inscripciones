@@ -7,8 +7,6 @@
 	    <meta http-equiv="X-UA-Compatible" content="IE=edge">
 	    <meta name="viewport" content="width=device-width, initial-scale=1">
 
-	    <script src="Datos.js"></script>
-
 		<script src='js/jquery.min.js'></script>
 		<script src="lib/dataTable.min.js"></script>
 		<script src="js/angular.js"></script>
@@ -37,7 +35,7 @@
 					<span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
 				  Agregar
 				</button>
-				<h2 id='acreditadosTotal'>0</h2>
+				<h2 id='acreditadosTotal'>Acreditados: {{onePage.totalAcreditados}} de {{onePage.totalInscriptos}}</h2>
 			</div>
 			<div class='row-fluid'>
 				<table datatable="ng" dt-options="onePage.dtOptions" dt-column-defs="onePage.dtColumnDefs" class="table table-striped table-bordered dataTable no-footer">
@@ -56,11 +54,11 @@
 			        <tbody>
 			        <tr ng-repeat="person in onePage.persons">
 			            <td>{{ person.Documento }}</td>
-			            <td>{{ person.Sal }}</td>
-			            <td>{{ person.Apellido }}</td>
-			            <td>{{ person.Nombre }}</td>
-			            <td>{{ person.Lugar }}</td>
-			            <td>{{ person.Telefono }}</td>
+			            <td>{{ person.Salutation }}</td>
+			            <td>{{ person.LastName }}</td>
+			            <td>{{ person.FirstName }}</td>
+			            <td>{{ person.City }}</td>
+			            <td>{{ person.Phone }}</td>
 			            <td>{{ person.DocResponsable }}</td>
 			            <td>{{ person.Acreditado }}</td>
 			        </tr>
@@ -73,18 +71,18 @@
 			  		<div class="modal-dialog" role="document">
 				    	<div class="modal-content">
 				      		<div class="modal-header">
-				        		<h4 class="modal-title" id="myModalLabel">Agregar una nueva Persona</h4>
+				        		<h4 class="modal-title" id="myModalLabel">Persona <span ng-if='onePage.pulseraEspecial()' class="pull-right label label-danger">Pulsera Especial</span></h4>
 				      		</div>
 					      	<div class="modal-body">
-					  			<form class="form-horizontal">
+					  			<form name='onePage.agregarForm' class="form-horizontal">
 					  				<div class="form-group">
 					  				<label for="salut" class="col-sm-2 control-label">Salutacion:</label>
     									<div class="col-sm-10">
 						  					<select id='salut' ng-model='onePage.persona.salutacion' class="form-control">
 												<option>Sr</option>
 												<option>Sra</option>
-												<option>Pr</option>
-												<option>Pra</option>
+												<option>Pastor</option>
+												<option>Pastora</option>
 												<option>Especial</option>
 											</select>
 										</div>
@@ -92,7 +90,7 @@
 					  				<div class="form-group">
 								    	<label for="documento" class="col-sm-2 control-label">Documento:</label>
 								    	<div class="col-sm-10">
-								    		<input type="text" class="form-control" ng-model='onePage.persona.documento' id="documento" placeholder="Documento">
+								    		<input type="text" class="form-control" ng-model='onePage.persona.documento' required documento-existente-validator id="documento" name='documento' placeholder="Documento" ng-model-options="{ updateOn: 'blur' }" ng-disabled='onePage.modificar'>
 							    		</div>
 								  	</div>
 							  		<div class="form-group">
@@ -130,22 +128,26 @@
 							    		</div>
 							    		<label for="phone" class="col-sm-2 control-label">Telefono:</label>
 								    	<div class="col-sm-3">
-								    		<input type="text" class="form-control" ng-model='onePage.persona.telefono' id="phone" placeholder="Telefono">
+								    		<input type="text" class="form-control" ng-model='onePage.persona.telefono' name='phone' id="phone" placeholder="Telefono">
 							    		</div>
 							    	</div>
 							    	<div ng-show='onePage.persona.isKid' class="form-group">
-							    		<div class="col-sm-offset-2 col-sm-10">
-							    			<p class="help-block">{{onePage.persona.responsable}}</p>   	
+							    		<div class="alert alert-info text-center" role="alert" ng-if='onePage.mostrarResponsable'>
+							    			El responsable del menor sera: <strong>{{onePage.persona.responsable}}</strong>
 							    		</div>
 							    	</div>
+							    	<div class="alert alert-danger text-center" role="alert" ng-if='onePage.errors'>{{onePage.errors}}</div>
 								</form>
 					      	</div>
 					      	<div class="modal-footer">
-								<button type="button" id='cancelar' class="btn btn-default" data-dismiss="modal">Cancelar</button>
-								<button type="button" id='guardar' class="btn btn-warning" data-dismiss="modal">Guardar Cambios</button>
-								<button type="button" id='agregar' class="btn btn-primary" ng-click='onePage.validate()'>
-								Acreditar</button>
-								<button type="button" class="btn btn-success">
+								<button type="button" id='cancelar' class="btn btn-default" data-dismiss="modal" ng-click='onePage.cancelar()'>Cancelar</button>
+								<button type="button" id='guardar' ng-if='onePage.modificar' class="btn btn-warning" data-dismiss="modal" ng-disabled='!onePage.isValid()' ng-click='onePage.guardar()'>
+								<span class="glyphicon glyphicon-pencil" aria-hidden="true"></span> Modificar</button>
+								<button type="button" id='agregarNuevo' ng-if='!onePage.modificar' class="btn btn-warning" data-dismiss="modal" ng-disabled='!onePage.isValid()' ng-click='onePage.guardar(true, "No")'>
+								<span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Agregar</button>
+								<button type="button" id='agregar' class="btn btn-primary" data-dismiss="modal" ng-disabled='!onePage.isValid()' ng-click='onePage.guardar(!onePage.modificar, "Si")'>
+								<span class="glyphicon glyphicon-ok-sign" aria-hidden="true"></span></span> Acreditar</button>
+								<button type="button" class="btn btn-success" ng-disabled='!onePage.isValid()' ng-if='!onePage.modificar' ng-click='onePage.guardar(!onePage.modificar, "Si"); onePage.persona = onePage.limpiarDatos()'>
 								<span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
 								Acreditar y Agregar nuevo</button>
 					      	</div>

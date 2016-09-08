@@ -10,8 +10,7 @@ if ($mysqli->connect_errno) {
     // No se debe revelar información delicada
 
     // Probemos esto:
-    print json_encode('error1');
-	echo "ERROR1";
+    echo json_encode(array());
     exit;
 }
 
@@ -39,7 +38,7 @@ if ($resultado->num_rows === 0) {
 }
 
 while ($row = $resultado->fetch_assoc()) {
-   $inspector[] = json_encode($row, JSON_UNESCAPED_UNICODE);
+   $inspector[] = $row;
 }
 echo json_encode($inspector);
 
