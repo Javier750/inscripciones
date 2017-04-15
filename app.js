@@ -76,8 +76,8 @@ inscripciones.controller('onePageController', function ($scope, $http, DTOptions
         DTColumnBuilder.newColumn('Apellido'),
         DTColumnBuilder.newColumn('Nombre'),
         DTColumnBuilder.newColumn('Lugar'),
-        DTColumnBuilder.newColumn('Telefono'),
-        DTColumnBuilder.newColumn('DooResponsable'),
+        DTColumnBuilder.newColumn('Iglesia'),
+        DTColumnBuilder.newColumn('Abono'),
         DTColumnBuilder.newColumn('Acreditado')
     ];
 
@@ -114,7 +114,7 @@ inscripciones.controller('onePageController', function ($scope, $http, DTOptions
     };
 
     controller.limpiarDatos = function (persona) {
-		    var isChico = persona && persona[6] ? true : false;
+		    var isChico = false;
 		    if (persona){
                 return {
         				salutacion: persona[1],
@@ -122,8 +122,8 @@ inscripciones.controller('onePageController', function ($scope, $http, DTOptions
         				nombre: persona[3],
         				apellido: persona[2],
         				lugar: persona[4],
-        				telefono: persona[5],
-        				docResponsable: persona[6],
+        				iglesia: persona[5],
+        				abono: persona[6],
         				responsable: '',
         				acreditado: persona[7],
         				isKid: isChico
@@ -132,13 +132,13 @@ inscripciones.controller('onePageController', function ($scope, $http, DTOptions
                 controller.modificar = false;
                 $('tr.selected').removeClass('selected');
       			return {
-        				salutacion: 'Sr',
+        				salutacion: 'Hermano',
         				documento: '',
         				nombre: '',
         				apellido: '',
         				lugar: '',
-        				telefono: '',
-        				docResponsable: '',
+        				iglesia: '',
+        				abono: '150',
         				responsable: '',
         				acreditado: 'No',
         				isKid: isChico

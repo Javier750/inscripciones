@@ -17,7 +17,7 @@ if ($mysqli->connect_errno) {
     exit;
 }
 // Realizar una consulta SQL
-$sql = "INSERT INTO $tabla_db1 (Documento, Salutation, FirstName, LastName, City, Phone, Created, Acreditado, DocResponsable) VALUES ('$_persona[documento]', '$_persona[salutacion]', '$_persona[nombre]', '$_persona[apellido]', '$_persona[lugar]', '$_persona[telefono]', CURRENT_TIMESTAMP, '$_persona[acreditado]', '$_persona[docResponsable]')";
+$sql = "INSERT INTO $tabla_db1 (Documento, Salutation, FirstName, LastName, City, Street, Created, Acreditado, Church) VALUES ('$_persona[documento]', '$_persona[salutacion]', '$_persona[nombre]', '$_persona[apellido]', '$_persona[lugar]', '$_persona[iglesia]', CURRENT_TIMESTAMP, '$_persona[acreditado]', '$_persona[abono]')";
 
 $mysqli->set_charset("utf8");
 if ($mysqli->query($sql) === TRUE) {

@@ -46,8 +46,8 @@
 			            <th>Apellido</th>
 			            <th>Nombre</th>
 			            <th>Lugar</th>
-			            <th>Telefono</th>
-			            <th>Dni Responsable</th>
+			            <th>Iglesia</th>
+			            <th>Abono</th>
 			            <th>Acreditado</th>
 			        </tr>
 			        </thead>
@@ -58,8 +58,8 @@
 			            <td>{{ person.LastName }}</td>
 			            <td>{{ person.FirstName }}</td>
 			            <td>{{ person.City }}</td>
-			            <td>{{ person.Phone }}</td>
-			            <td>{{ person.DocResponsable }}</td>
+			            <td>{{ person.Street }}</td>
+			            <td>{{ person.Church }}</td>
 			            <td>{{ person.Acreditado }}</td>
 			        </tr>
 			        </tbody>
@@ -79,11 +79,10 @@
 					  				<label for="salut" class="col-sm-2 control-label">Salutacion:</label>
     									<div class="col-sm-10">
 						  					<select id='salut' ng-model='onePage.persona.salutacion' class="form-control">
-												<option>Sr</option>
-												<option>Sra</option>
+												<option>Hermano</option>
 												<option>Pastor</option>
-												<option>Pastora</option>
-												<option>Especial</option>
+												<option>Anciano</option>
+												<option>Lider</option>
 											</select>
 										</div>
 					  				</div>
@@ -111,7 +110,7 @@
 								    		<input type="text" ng-model='onePage.persona.lugar' class="form-control" id="place" placeholder="Lugar">
 							    		</div>
 								  	</div>
-								  	<div class="form-group">
+								  	<!-- <div class="form-group">
     									<div class="col-sm-offset-2 col-sm-10">
 										  	<div class="checkbox">
 										    	<label>
@@ -120,6 +119,18 @@
 										    	</label>
 										  	</div>
 									  	</div>
+								  	</div> -->
+								  	<div class="form-group">
+								    	<label for="iglesia" class="col-sm-2 control-label">Iglesia:</label>
+								    	<div class="col-sm-10">
+								    		<input type="text" ng-model='onePage.persona.iglesia' class="form-control" id="iglesia" placeholder="Iglesia">
+							    		</div>
+								  	</div>
+								  	<div class="form-group">
+								    	<label for="abono" class="col-sm-2 control-label">Abono:</label>
+								    	<div class="col-sm-10">
+								    		<input type="text" ng-model='onePage.persona.abono' class="form-control" id="abono">
+							    		</div>
 								  	</div>
 								  	<div ng-show='onePage.persona.isKid' class="form-group">
 								  		<label for="docResponsable" class="col-sm-4 control-label">Dni del responsable:</label>
@@ -141,7 +152,7 @@
 					      	</div>
 					      	<div class="modal-footer">
 								<button type="button" id='cancelar' class="btn btn-default" data-dismiss="modal" ng-click='onePage.cancelar()'>Cancelar</button>
-								<button type="button" id='guardar' ng-if='onePage.modificar' class="btn btn-warning" data-dismiss="modal" ng-disabled='!onePage.isValid()' ng-click='onePage.guardar()'>
+								<button type="button" id='guardar' ng-if='onePage.modificar' class="btn btn-warning" data-dismiss="modal" ng-disabled='!onePage.isValid()' ng-click='onePage.guardar(false, onePage.persona.acreditado)'>
 								<span class="glyphicon glyphicon-pencil" aria-hidden="true"></span> Modificar</button>
 								<button type="button" id='agregarNuevo' ng-if='!onePage.modificar' class="btn btn-warning" data-dismiss="modal" ng-disabled='!onePage.isValid()' ng-click='onePage.guardar(true, "No")'>
 								<span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Agregar</button>

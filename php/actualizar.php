@@ -17,7 +17,7 @@ if ($mysqli->connect_errno) {
     exit;
 }
 // Realizar una consulta SQL
-$sql = "UPDATE $tabla_db1 SET Salutation = '$_persona[salutacion]', FirstName = '$_persona[nombre]', LastName= '$_persona[apellido]', City= '$_persona[lugar]', Phone = '$_persona[telefono]', DocResponsable = '$_persona[docResponsable]', Acreditado = '$_persona[acreditado]' WHERE Documento = '$_persona[documento]'";
+$sql = "UPDATE $tabla_db1 SET Salutation = '$_persona[salutacion]', FirstName = '$_persona[nombre]', LastName= '$_persona[apellido]', City= '$_persona[lugar]', Street = '$_persona[iglesia]', Church = '$_persona[abono]', Acreditado = '$_persona[acreditado]' WHERE Documento = '$_persona[documento]'";
 
 $mysqli->set_charset("utf8");
 if ($mysqli->query($sql) === TRUE) {

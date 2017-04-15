@@ -15,7 +15,7 @@ if ($mysqli->connect_errno) {
 }
 
 // Realizar una consulta SQL
-$sql = "SELECT Documento, Salutation, FirstName, LastName, City, Phone, DocResponsable, Acreditado 			 
+$sql = "SELECT Documento, Salutation, FirstName, LastName, City, Street, Church, Acreditado 			 
 			 FROM $tabla_db1";
 $mysqli->set_charset("utf8");
 if (!$resultado = $mysqli->query($sql)) {
