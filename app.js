@@ -151,14 +151,20 @@ inscripciones.controller('onePageController', function ($scope, $http, DTOptions
 
     controller.buscarDoc = function () {
   		  var result = _.find(controller.persons, function (persona) {
-            return persona.Documento === controller.persona.docResponsable;
+                return persona.Documento === controller.persona.docResponsable;
   		  });
+          var resp = _.find(controller.persons, function(p) {
+                return p.docResponsable === controller.persona.docResponsable;
+          });
+          console.log(resp);
   		  if (result) {
             controller.persona.responsable =  result.LastName+ ', ' + result.FirstName;
             controller.mostrarResponsable = true;
+            controller.persona.telefono = resp ? resp.telefono : '';
   		  }else {
             controller.persona.responsable = 'La persona tiene que estar cargada';
             controller.mostrarResponsable = false;
+            controller.telefono = '';
   		  }
     };
 
